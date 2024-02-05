@@ -1,6 +1,6 @@
 <template>
   <div class="login-div">
-    <el-image class="logo" :src="logo" :fit="fill" />
+    <el-image class="logo" :src="logo" fit="fill" />
     <LoginForm />
   </div>
 </template>
