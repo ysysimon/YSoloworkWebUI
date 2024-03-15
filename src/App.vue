@@ -5,7 +5,7 @@
         <el-button size="small" text @click="changeLanguage('zhCn')">中文</el-button>
         <el-button size="small" text @click="changeLanguage('enUs')">English</el-button>
       </div>
-      <!-- <Login /> -->
+      <Login />
       <Home />
       <!-- {{ isDark }}
       <button @click="toggleDarkMode">Toggle Dark Mode</button> -->
