@@ -1,19 +1,30 @@
 <template>
   <div>
     <el-config-provider :locale="elLocale" :button="{ autoInsertSpace: true }">
+      <!-- 语言选择 -->
       <div class="lang">
-        <el-button size="small" text @click="changeLanguage('zhCn')">中文</el-button>
-        <el-button size="small" text @click="changeLanguage('enUs')">English</el-button>
+        <el-dropdown>
+          <el-icon size="20">
+            <Setting />
+          </el-icon>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="changeLanguage('zhCn')">中文</el-dropdown-item>
+              <el-dropdown-item @click="changeLanguage('enUs')">English</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
       <Login />
-      <Home />
-      <!-- {{ isDark }}
-      <button @click="toggleDarkMode">Toggle Dark Mode</button> -->
+      <!-- <Home /> -->
     </el-config-provider>
   </div>
 </template>
 
 <script setup>
+import {
+  Setting,
+} from '@element-plus/icons-vue'
 import Login from './view/Login.vue'
 import { useDark, useToggle } from '@vueuse/core'
 
@@ -53,11 +64,10 @@ function toggleDarkMode() {
 </script>
 
 <style scoped>
-.lang{
+.lang {
   position: fixed;
-  right: 0%;
-}
-.lang .el-button{
-  margin: 0;
+  right: 2%;
+  top: 2%;
+  z-index: 10;
 }
 </style>

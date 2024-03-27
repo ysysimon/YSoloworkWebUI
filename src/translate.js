@@ -8,6 +8,7 @@ export const messages = {
         task: 'Task',
         current_task: 'Current Task',
         archive_task: 'Archive Task',
+        project: 'Project',
       }
     },
     zhCn: {
@@ -18,6 +19,7 @@ export const messages = {
         task: '任务',
         current_task: '当前任务',
         archive_task: '存档任务',
+        project: '项目',
       }
     }
   };
