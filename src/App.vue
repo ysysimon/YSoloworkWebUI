@@ -15,8 +15,7 @@
           </template>
         </el-dropdown>
       </div>
-      <Login />
-      <!-- <Home /> -->
+      <router-view></router-view>
     </el-config-provider>
   </div>
 </template>
@@ -25,15 +24,19 @@
 import {
   Setting,
 } from '@element-plus/icons-vue'
-import Login from './view/Login.vue'
+
 import { useDark, useToggle } from '@vueuse/core'
 
 import { useI18n } from 'vue-i18n'
 import enLocale from 'element-plus/es/locale/lang/en'
 import zhCnLocale from 'element-plus/es/locale/lang/zh-cn'
-import Home from './view/Home.vue'
+import { useAuthStore } from './stores/auth'
 
 import { ref } from 'vue';
+
+// 初始化store
+const authStore = useAuthStore();
+authStore.initializeStore();
 
 const elementPlusLocales = {
   enUs: enLocale,

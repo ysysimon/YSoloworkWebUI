@@ -9,6 +9,8 @@ export const messages = {
         current_task: 'Current Task',
         archive_task: 'Archive Task',
         project: 'Project',
+        loging: 'Loging in...',
+        loging_failed:'Login Failed!',
       }
     },
     zhCn: {
@@ -20,6 +22,8 @@ export const messages = {
         current_task: '当前任务',
         archive_task: '存档任务',
         project: '项目',
+        logging: '登录中...',
+        loging_failed:'登录失败！',
       }
     }
   };

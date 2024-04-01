@@ -8,7 +8,7 @@
                 <el-input v-model="form.pwd" :placeholder="$t('message.plz_input_pwd')" show-password />
             </el-form-item>
             <el-form-item>
-                <el-button class="button" @click="login">
+                <el-button class="button" @click="handleSubmit">
                     {{ $t('message.login') }}
                 </el-button>
             </el-form-item>
@@ -18,6 +18,11 @@
 
 <script setup>
 import { ref } from 'vue';
+import { ElLoading } from 'element-plus'
+
+import { useLogin } from '../APIs/useLogin';
+const { login, isLoading, error } = useLogin();
+
 
 const form = ref({
     username: '',
@@ -48,21 +53,16 @@ const rules = ref({
 });
 
 
-function login() {
+function handleSubmit () {
     formRef.value.validate(async (valid) => {
         if (valid) {
-            console.log('表单验证成功:', form);
+            //console.log('表单验证成功:', form);
             // 提交登入表单
-            const response = await fetch('http://localhost:3000/users?username=' + username.value + '&password=' + password.value);
-            const users = await response.json();
+            login(
+                form.value.username,
+                form.value.pwd
+            )
 
-            if (users.length > 0) {
-                alert('Login successful');
-                // 这里处理登录成功逻辑，如保存用户状态或重定向
-            } else {
-                alert('Login failed');
-                // 处理登录失败逻辑
-            }
         } else {
             console.error('表单验证失败');
             return false;
