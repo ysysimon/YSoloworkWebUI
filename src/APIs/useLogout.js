@@ -13,7 +13,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../stores/auth';
 
-export function useLogin() {
+export function useLogout() {
     const isLoading = ref(false);
     const error = ref(null);
     const { t } = useI18n();
@@ -22,36 +22,32 @@ export function useLogin() {
     const router = useRouter();
     const store = useAuthStore();
 
-    const login = async (username, password) => {
+    const logout = async () => {
         isLoading.value = true;
         error.value = null;
         let loadingInstance = null
 
         try {
             loadingInstance = ElLoading.service({ lock: true, background: 'rgba(0, 0, 0, 0.7)', text: t('message.requesting') }); // 启动加载动画
-            const response = await axios.post(loginUrl + '/api/auth/login', {
-                username,
-                password
-            })
+            const response = await axios.post(loginUrl + '/api/auth/logout',)
                 .then(response => {
-                    // console.log('登录成功:', response); // for debug
-                    if (response.status === 200 && response.data.access_token) {
-                        const token = response.data.access_token;
-                        // 在这里处理登录成功逻辑，例如状态更新、路由跳转等
-                        store.setToken(token);
-                        //路由跳转
-                        router.push('/home');
-                        console.log('登录成功:');
+                    // console.log('登出成功:', response); // for debug
+                    if (response.status === 200) {
+                        console.log('登出成功:');
                     }
                     
                 })
             
         } catch (err) {
-            console.error('登录失败:', err.response || err);
+            console.error('登出失败:', err.response || err);
             error.value = err.response || err;
-            // 在这里处理登录失败逻辑
-            ElMessage.error(t('message.loging_failed'))
+            // 在这里处理后端不在线逻辑
+            ElMessage.error(t('message.logout_failed'))
         } finally {
+            // 不管服务端是否在线，都清除 Token
+            store.clearToken()
+            //路由跳转
+            router.push('/login');
             isLoading.value = false;
             if (loadingInstance) {
                 loadingInstance.close() // 关闭加载动画
@@ -59,5 +55,5 @@ export function useLogin() {
         }
     };
 
-    return { login, isLoading, error };
+    return { logout, isLoading, error };
 }

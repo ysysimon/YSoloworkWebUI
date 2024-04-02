@@ -9,8 +9,10 @@ export const messages = {
         current_task: 'Current Task',
         archive_task: 'Archive Task',
         project: 'Project',
-        loging: 'Loging in...',
+        requesting: 'Requesting...',
         loging_failed:'Login Failed!',
+        logout:'logout',
+        logout_failed:'Logout Failed! But Token will be clean.',
       }
     },
     zhCn: {
@@ -22,8 +24,10 @@ export const messages = {
         current_task: '当前任务',
         archive_task: '存档任务',
         project: '项目',
-        logging: '登录中...',
+        requesting: '请求中...',
         loging_failed:'登录失败！',
+        logout:'登出',
+        logout_failed:'登出失败！但是 Token 将被清除。',
       }
     }
   };
