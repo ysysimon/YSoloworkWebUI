@@ -37,8 +37,13 @@ export function useLogin() {
                     // console.log('登录成功:', response); // for debug
                     if (response.status === 200 && response.data.access_token) {
                         const token = response.data.access_token;
+                        const user = response.data.user;
                         // 在这里处理登录成功逻辑，例如状态更新、路由跳转等
                         store.setToken(token);
+                        if (user) {
+                            store.setUser(user);
+                        }
+                        
                         //路由跳转
                         router.push('/home');
                         console.log('登录成功:');

@@ -1,57 +1,51 @@
 <template>
-    <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab">
-        <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+    <el-tabs v-model="activeTab" type="card" class="demo-tabs" closable @tab-remove="removeTab">
+        <el-tab-pane v-for="item in tabs" :key="item.name" :label="item.title" :name="item.name">
             <component :is="item.content"></component>
         </el-tab-pane>
     </el-tabs>
 </template>
 
 <script setup>
-import { onMounted, ref, markRaw  } from 'vue'
-import Projects from '../components/Projects.vue';
-import Sortable from 'sortablejs'
-import ProjectCard from './Projects/ProjectCard.vue';
+import { useTabStore } from '../stores/tab';
+import { storeToRefs } from 'pinia'
+import { watch, onMounted } from 'vue'
 
-let tabIndex = 2
-const editableTabsValue = ref('1')  //激活的tabs
-const editableTabs = ref([
-    {
-        title: 'Tab 1',
-        name: '1',
-        content: markRaw(Projects),
-    },
-    {
-        title: 'Tab 2',
-        name: '2',
-        content: "haha",
-    },
-])
+const tabStore = useTabStore();
+const { activeTab, tabs } = storeToRefs(tabStore);
 
-const addTab = (targetName) => {
-    const newTabName = `${++tabIndex}`
-    editableTabs.value.push({
-        title: 'New Tab',
-        name: newTabName,
-        content: 'New Tab content',
-    })
-    editableTabsValue.value = newTabName
-}
+// 使用 watch 导致很多问题
+// watch(activeTab, () => {
+    
+// })
+
+// watch(tabs, () => {
+    
+// })
+
 const removeTab = (targetName) => {
-    const tabs = editableTabs.value
-    let activeName = editableTabsValue.value
+    const _tabs = tabs.value
+    let activeName = activeTab.value
     if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
+        _tabs.forEach((tab, index) => {
             if (tab.name === targetName) {
-                const nextTab = tabs[index + 1] || tabs[index - 1]
+                const nextTab = _tabs[index + 1] || _tabs[index - 1]
                 if (nextTab) {
                     activeName = nextTab.name
                 }
             }
         })
     }
+    activeTab.value = activeName
+    tabs.value = _tabs.filter((tab) => tab.name !== targetName)
 
-    editableTabsValue.value = activeName
-    editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
+    // 存储tab状态有bug
+    // if (tabs.value && tabs.value.length == 0) {
+    //     tabStore.activeTab = null;
+    // }
+    // tabStore.updateActiveTablocalStorage()
+    // tabStore.updateTabslocalStorage()
+
 }
 
 //有问题 先不加

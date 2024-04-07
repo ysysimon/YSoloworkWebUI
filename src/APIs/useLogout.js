@@ -13,6 +13,8 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../stores/auth';
 
+import { useTabStore } from '../stores/tab';
+
 export function useLogout() {
     const isLoading = ref(false);
     const error = ref(null);
@@ -21,6 +23,7 @@ export function useLogout() {
 
     const router = useRouter();
     const store = useAuthStore();
+    const tabStore = useTabStore()
 
     const logout = async () => {
         isLoading.value = true;
@@ -35,9 +38,9 @@ export function useLogout() {
                     if (response.status === 200) {
                         console.log('登出成功:');
                     }
-                    
+
                 })
-            
+
         } catch (err) {
             console.error('登出失败:', err.response || err);
             error.value = err.response || err;
@@ -46,6 +49,9 @@ export function useLogout() {
         } finally {
             // 不管服务端是否在线，都清除 Token
             store.clearToken()
+            store.clearUser()
+            // tabStore.clearActiveTab();
+            // tabStore.clearTabs();
             //路由跳转
             router.push('/login');
             isLoading.value = false;
@@ -53,7 +59,11 @@ export function useLogout() {
                 loadingInstance.close() // 关闭加载动画
             }
         }
+
+
     };
+
+
 
     return { logout, isLoading, error };
 }

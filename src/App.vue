@@ -25,7 +25,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark  } from '@vueuse/core';
 
 import { useI18n } from 'vue-i18n'
 import enLocale from 'element-plus/es/locale/lang/en'
@@ -51,18 +51,22 @@ function changeLanguage(lang) {
 }
 
 
-const isDark = useDark(true)
+
+// 设置为暗模式
+localStorage.setItem('vueuse-color-scheme','dark');
+useDark()
+
 //const toggleDark  = useToggle(isDark)
 
 
-function toggleDarkMode() {
-  isDark.value = !isDark.value;
-  if (isDark.value) {
-    document.body.classList.add('dark');
-  } else {
-    document.body.classList.remove('dark');
-  }
-}
+// function toggleDarkMode() {
+//   isDark.value = !isDark.value;
+//   if (isDark.value) {
+//     document.body.classList.add('dark');
+//   } else {
+//     document.body.classList.remove('dark');
+//   }
+// }
 
 </script>
 
