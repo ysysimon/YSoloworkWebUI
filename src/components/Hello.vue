@@ -1,5 +1,5 @@
 <template>
-  <h2>Hello, {{ userName }}.</h2>
+  <h2>{{ $t('message.hello') }}, {{ userName }}.</h2>
 </template>
 
 <script setup>

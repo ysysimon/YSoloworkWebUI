@@ -7,16 +7,13 @@ export const useTabStore = defineStore('tab', {
         activeTab: 'Hello',
         tabs: [
             {
-                title: 'Hello',
+                title: 'Welcome 欢迎',
                 name: 'Hello',
                 content: markRaw(Hello),
             },
 
         ]
     }),
-    getters: {
-
-    },
     actions: {
         updateTabslocalStorage() {
             localStorage.setItem('tabs', JSON.stringify(this.tabs));
@@ -28,9 +25,19 @@ export const useTabStore = defineStore('tab', {
             this.tabs = null;
             localStorage.removeItem('tabs');
         },
+        addTab(newTab) {
+            const exists = this.tabs.some(tab => tab.name == newTab.name)
+            if (!exists) {
+                this.tabs.push(newTab);
+            }
+        },
+        setActivateTab(name) {
+            this.activeTab = name;
+        },
         clearActiveTab() {
             this.activeTab = null;
             localStorage.removeItem('activeTab');
         },
+        
     }
 });

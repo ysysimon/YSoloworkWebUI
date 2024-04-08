@@ -13,6 +13,9 @@ export const messages = {
         loging_failed:'Login Failed!',
         logout:'logout',
         logout_failed:'Logout Failed! But Token will be clean.',
+        userManage: 'User Manage',
+        taskManage: 'Task Manage',
+        hello: 'Hello',
       }
     },
     zhCn: {
@@ -28,6 +31,9 @@ export const messages = {
         loging_failed:'登录失败！',
         logout:'登出',
         logout_failed:'登出失败！但是 Token 将被清除。',
+        userManage: '用户管理',
+        taskManage: '任务管理',
+        hello: '你好',
       }
     }
   };

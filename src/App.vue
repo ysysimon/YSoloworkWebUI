@@ -31,12 +31,14 @@ import { useI18n } from 'vue-i18n'
 import enLocale from 'element-plus/es/locale/lang/en'
 import zhCnLocale from 'element-plus/es/locale/lang/zh-cn'
 import { useAuthStore } from './stores/auth'
+import { useSettingStore } from './stores/setting'
 
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 // 初始化store
 const authStore = useAuthStore();
 authStore.initializeStore();
+const settingStore = useSettingStore();
 
 const elementPlusLocales = {
   enUs: enLocale,
@@ -48,8 +50,14 @@ const { locale } = useI18n();
 function changeLanguage(lang) {
   locale.value = lang;  // 更改 Vue I18n 的语言
   elLocale.value = lang === 'enUs' ? enLocale : zhCnLocale;
+  settingStore.setting["lang"] = lang
+  settingStore.saveSetting2localStorage()
 }
 
+
+onMounted(() => {
+  changeLanguage(settingStore.setting["lang"])
+});
 
 
 // 设置为暗模式

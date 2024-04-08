@@ -68,6 +68,7 @@ const activities = [
 <style scoped>
 .card {
     max-width: 480px;
-    background-color: #0c1b23;
+    /* background-color: #0c1b23; */
+    background: #141414;
 }
 </style>

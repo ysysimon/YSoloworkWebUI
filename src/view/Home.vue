@@ -4,8 +4,9 @@
             <!-- <el-header>
                 <el-image class="logo" :src="logo" fit="fill" />
             </el-header> -->
-            <el-container style="height: 100vh;">
-                <el-aside class="side" @click="theCollapse = false" width="120">
+            <el-container>
+                <!-- <el-aside class="side" @click="theCollapse = false" width="120"> 侧边栏折叠也有bug 先去掉 -->
+                <el-aside class="side" width="120">
                     <SideBar :theCollapse="theCollapse" />
                     <el-dropdown class="user">
                         <el-icon size="20">
@@ -39,7 +40,7 @@ import SideBar from '../components/SideBar.vue'
 
 import { ref } from 'vue';
 import Tabs from '../components/Tabs.vue';
-const theCollapse = ref(false);
+const theCollapse = ref(true);
 
 import { useLogout } from '../APIs/useLogout';
 const { logout, isLoading, error } = useLogout();
