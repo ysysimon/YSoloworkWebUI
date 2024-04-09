@@ -13,7 +13,7 @@
                 <Histogram />
             </el-icon>
             <template #title>
-                {{ $t('message.taskManage') }}
+                {{ $t('message.compute_cluster') }}
             </template>
         </el-menu-item>
         <el-menu-item index="2" @click="userManageClick">
@@ -59,11 +59,11 @@ function projectsClick() {
 
 function taskManageClick() {
     tabStore.addTab({
-        title: t('message.taskManage'),
-        name: 'taskManage',
+        title: t('message.compute_cluster'),
+        name: 'compute_cluster',
         content: markRaw(TaskManage),
     })
-    tabStore.setActivateTab('taskManage')
+    tabStore.setActivateTab('compute_cluster')
 }
 
 

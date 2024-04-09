@@ -28,12 +28,15 @@ import {
 import { useDark  } from '@vueuse/core';
 
 import { useI18n } from 'vue-i18n'
+const { t } = useI18n();
 import enLocale from 'element-plus/es/locale/lang/en'
 import zhCnLocale from 'element-plus/es/locale/lang/zh-cn'
 import { useAuthStore } from './stores/auth'
 import { useSettingStore } from './stores/setting'
+import { ElMessage } from 'element-plus'
 
 import { ref, onMounted } from 'vue';
+
 
 // 初始化store
 const authStore = useAuthStore();
@@ -52,12 +55,13 @@ function changeLanguage(lang) {
   elLocale.value = lang === 'enUs' ? enLocale : zhCnLocale;
   settingStore.setting["lang"] = lang
   settingStore.saveSetting2localStorage()
+  ElMessage(t('message.langSwitch'))
 }
 
 
-onMounted(() => {
-  changeLanguage(settingStore.setting["lang"])
-});
+// onMounted(() => {
+//   changeLanguage(settingStore.setting["lang"])
+// });
 
 
 // 设置为暗模式

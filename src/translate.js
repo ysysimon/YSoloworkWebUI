@@ -16,6 +16,15 @@ export const messages = {
         userManage: 'User Manage',
         taskManage: 'Task Manage',
         hello: 'Hello',
+        message_failed: "Get info Failed!",
+        username: "User Name",
+        email: "Email",
+        id: "ID",
+        updated_at: "Last Updated",
+        permission_level: "Permission Level",
+        langSwitch: "Language switch successful.",
+        compute_cluster: "Compute Cluster",
+        update_user: "Update User",
       }
     },
     zhCn: {
@@ -34,6 +43,15 @@ export const messages = {
         userManage: '用户管理',
         taskManage: '任务管理',
         hello: '你好',
+        message_failed: "获取信息失败！",
+        username: "用户名",
+        email:"邮箱",
+        id: "ID",
+        updated_at: "上次更改时间",
+        permission_level: "权限等级",
+        langSwitch: "语言切换成功。",
+        compute_cluster: "计算集群",
+        update_user: "修改用户",
       }
     }
   };
