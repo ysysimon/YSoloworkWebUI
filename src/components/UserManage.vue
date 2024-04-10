@@ -20,12 +20,18 @@
         </template>
         <template #default>
             <el-space wrap size="large">
-                <el-input v-for="column in columns" :key="column.key" :placeholder=column.title />
+                <el-input v-for="column in columns" :key="column.key" :placeholder=column.title
+                    v-model="inputRefs[column.key]" :disabled="inputDisableRefs[column.key]"
+                    :type="inputTyperRefs[column.key]" />
             </el-space>
         </template>
         <template #footer>
             <div style="flex: auto">
-                <el-button @click="">confirm</el-button>
+                <el-popconfirm @confirm="submitUpdate" icon="" confirm-button-type="danger" :title="popconfirmText">
+                    <template #reference>
+                        <el-button>{{ $t('message.confirm_update') }}</el-button>
+                    </template>
+                </el-popconfirm>
             </div>
         </template>
     </el-drawer>
@@ -38,7 +44,7 @@ import {
 } from '@element-plus/icons-vue'
 import { ref, onMounted, h } from 'vue';
 
-import { useGetAllUsers } from '../APIs/useGetAllUesers';
+import { useGetAllUsers } from '../APIs/useGetAllUsers';
 const { GetAllUsers, isLoading, error } = useGetAllUsers();
 
 import { useI18n } from 'vue-i18n';
@@ -47,10 +53,16 @@ const { t } = useI18n();
 import dayjs from 'dayjs'
 
 const drawer2 = ref(false)
+const inputRefs = ref({})
+const inputDisableRefs = ref({})
+const inputTyperRefs = ref({})
+const popconfirmText = ref(t('message.r_u_sure'))
+
 const columns = ref([])
 const data = ref([])
 
-onMounted(() => {
+// 在 mount的时候请求用户数据
+function GetUsers () {
     GetAllUsers().then(
         (value) => {
             // console.log(value) //for debug
@@ -108,53 +120,53 @@ onMounted(() => {
             console.log('Promise Failed!', error); // 如果失败，会打印 "失败原因"
         }
     )
-})
+}
+onMounted(GetUsers)
 
+// 弹出修改内容的二级抽屉
 const cellProps = ({ rowIndex, rowData }) => {
-  const key = rowIndex
-  return {
-    // ['data-key']: key,
-    onMouseup: () => {
-    //   console.log(rowIndex, "Clicked!")
-      drawer2.value = true
-    },
-  }
+    const key = rowIndex
+    return {
+        // ['data-key']: key,
+        onMouseup: () => {
+            //   console.log(rowIndex, "Clicked!")
+            drawer2.value = true
+            Object.keys(rowData).forEach((key) => {
+                inputRefs.value[key] = rowData[key]
+                // console.log(key)
+                if (key === 'id' || key === 'updated_at') {
+                    inputDisableRefs.value[key] = true
+                }
+
+                if (key === 'permission_level') {
+                    inputTyperRefs.value[key] = 'number'
+                }
+            })
+        },
+    }
 }
 
+// 提交修改
+import { useUpdateUser } from '../APIs/useUpdateUser';
+const { UpdateUser, isUpdateLoading, Updateerror } = useUpdateUser();
 
-// table demo
-// const generateColumns = (length = 10, prefix = 'column-', props) =>
-//     Array.from({ length }).map((_, columnIndex) => ({
-//         ...props,
-//         key: `${prefix}${columnIndex}`,
-//         dataKey: `${prefix}${columnIndex}`,
-//         title: `Column ${columnIndex}`,
-//         width: 150,
-
-//     }))
-
-// const generateData = (
-//     columns,
-//     length = 200,
-//     prefix = 'row-'
-// ) =>
-//     Array.from({ length }).map((_, rowIndex) => {
-//         return columns.reduce(
-//             (rowData, column, columnIndex) => {
-//                 rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`
-//                 return rowData
-//             },
-//             {
-//                 id: `${prefix}${rowIndex}`,
-//                 parentId: null,
-//             }
-//         )
-//     })
-// columns = generateColumns(10)
-// console.log(columns);
-// data = generateData(columns, 200)
-// console.log(data);
-
+function submitUpdate() {
+    //console.log("submited!")
+    // console.log(inputRefs)
+    UpdateUser( inputRefs.value["id"],{
+        "username": inputRefs.value["username"],
+        "email": inputRefs.value["email"],
+        "permission_level": inputRefs.value["permission_level"]
+    }).then(
+        () => {
+            GetUsers()
+        },
+        (error) => {
+            console.log('Promise Failed!', error); // 如果失败，会打印 "失败原因"
+        }
+    ),
+    drawer2.value = false
+}
 </script>
 
 <style scoped>
@@ -162,5 +174,4 @@ const cellProps = ({ rowIndex, rowData }) => {
     width: 100%;
     height: 90vh;
 }
-
 </style>

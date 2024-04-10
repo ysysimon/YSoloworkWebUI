@@ -50,18 +50,20 @@ const elementPlusLocales = {
 
 const elLocale = ref(enLocale);
 const { locale } = useI18n();
-function changeLanguage(lang) {
+function changeLanguage(lang, notify = true) {
   locale.value = lang;  // 更改 Vue I18n 的语言
   elLocale.value = lang === 'enUs' ? enLocale : zhCnLocale;
   settingStore.setting["lang"] = lang
   settingStore.saveSetting2localStorage()
-  ElMessage(t('message.langSwitch'))
+  if (notify) {
+    ElMessage(t('message.langSwitch'))
+  }
 }
 
 
-// onMounted(() => {
-//   changeLanguage(settingStore.setting["lang"])
-// });
+onMounted(() => {
+  changeLanguage(settingStore.setting["lang"], false)
+});
 
 
 // 设置为暗模式

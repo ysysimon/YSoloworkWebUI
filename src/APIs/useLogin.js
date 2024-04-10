@@ -30,8 +30,8 @@ export function useLogin() {
         try {
             loadingInstance = ElLoading.service({ lock: true, background: 'rgba(0, 0, 0, 0.7)', text: t('message.requesting') }); // 启动加载动画
             const response = await axios.post(loginUrl + '/api/auth/login', {
-                username,
-                password
+                "username": username,
+                "password": password
             })
                 .then(response => {
                     // console.log('登录成功:', response); // for debug

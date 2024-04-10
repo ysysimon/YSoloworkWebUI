@@ -9,18 +9,12 @@ import 'element-plus/theme-chalk/el-message.css';
 
 import { useI18n } from 'vue-i18n';
 
-// import { useRouter } from 'vue-router';
-
-import { useAuthStore } from '../stores/auth';
 
 export function useGetAllUsers() {
     const isLoading = ref(false);
     const error = ref(null);
     const { t } = useI18n();
     const loginUrl = import.meta.env.VITE_API_URL; // 使用环境变量
-
-    // const router = useRouter();
-    const store = useAuthStore();
 
     const GetAllUsers = async () => {
         isLoading.value = true;
@@ -40,7 +34,6 @@ export function useGetAllUsers() {
                         console.log('信息获取成功:');
                         finalData = response.data
                     }
-                    
                 })
             
         } catch (err) {
@@ -48,6 +41,11 @@ export function useGetAllUsers() {
             error.value = err.response || err;
             // 在这里处理失败逻辑
             ElMessage.error(t('message.message_failed'))
+            if (err.response.data.error_message) {
+                err.response.data.error_message.forEach(errMsg => {
+                    ElMessage.error(t('message.' + errMsg))
+                });
+            }
         } finally {
             isLoading.value = false;
             // if (loadingInstance) {
