@@ -1,30 +1,7 @@
 <template>
-    <el-row :gutter="10">
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
-            <ProjectCard />
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-            <ProjectCard />
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-            <ProjectCard />
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="4">
-            <ProjectCard />
-            <ProjectCard />
-        </el-col>
-    </el-row>
+    <el-space wrap>
+        <ProjectCard v-for="i in 33" :key="i" style="width: 360px"/>
+  </el-space>
 </template>
 
 <script setup>

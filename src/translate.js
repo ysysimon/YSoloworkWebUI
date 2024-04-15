@@ -29,6 +29,8 @@ export const messages = {
         r_u_sure: "ARE YOU SURE?",
         illegal_user: "Illegal User!",
         update_success: "Update Success",
+        authentication_failed: "Authentication Failed!",
+        permission_denied: "Permission Denied!",
       }
     },
     zhCn: {
@@ -60,6 +62,8 @@ export const messages = {
         r_u_sure: "你确定吗？",
         illegal_user: "非法用户！",
         update_success: "修改成功",
+        authentication_failed: "认证失败！",
+        permission_denied: "没有权限！",
       }
     }
   };

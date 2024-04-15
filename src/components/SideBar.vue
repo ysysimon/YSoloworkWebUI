@@ -8,7 +8,7 @@
                 {{ $t('message.project') }}
             </template>
         </el-menu-item>
-        <el-menu-item index="1" @click="taskManageClick">
+        <el-menu-item index="1" @click="computeClusterClick">
             <el-icon>
                 <Histogram />
             </el-icon>
@@ -16,7 +16,15 @@
                 {{ $t('message.compute_cluster') }}
             </template>
         </el-menu-item>
-        <el-menu-item index="2" @click="userManageClick">
+        <el-menu-item index="2" @click="taskManageClick">
+            <el-icon>
+                <Grid />
+            </el-icon>
+            <template #title>
+                {{ $t('message.taskManage') }}
+            </template>
+        </el-menu-item>
+        <el-menu-item v-if="show_userMange" index="3" @click="userManageClick">
             <el-icon>
                 <UserFilled />
             </el-icon>
@@ -32,21 +40,33 @@ import {
     Menu,
     UserFilled,
     Histogram,
+    Grid,
 } from '@element-plus/icons-vue'
 
 import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '../stores/auth';
 
 import Projects from './Projects.vue';
 import UserManage from './UserManage.vue';
+import ComputeCluster from './ComputeCluster.vue';
 import TaskManage from './TaskManage.vue';
 
-import { markRaw } from 'vue'
+import { ref, markRaw } from 'vue'
 import { useTabStore } from '../stores/tab';
 const tabStore = useTabStore();
 const { t } = useI18n();
 const props = defineProps({
     theCollapse: Boolean,
 });
+
+const show_userMange = ref(false);
+
+const authStore = useAuthStore();
+if (authStore.user) {
+    if (authStore.user["permissionLevel"] >= 5) {
+        show_userMange.value = true;
+    }
+}
 
 function projectsClick() {
     tabStore.addTab({
@@ -57,15 +77,23 @@ function projectsClick() {
     tabStore.setActivateTab('projects')
 }
 
-function taskManageClick() {
+function computeClusterClick() {
     tabStore.addTab({
         title: t('message.compute_cluster'),
         name: 'compute_cluster',
-        content: markRaw(TaskManage),
+        content: markRaw(ComputeCluster),
     })
     tabStore.setActivateTab('compute_cluster')
 }
 
+function taskManageClick() {
+    tabStore.addTab({
+        title: t('message.taskManage'),
+        name: 'taskManage',
+        content: markRaw(TaskManage),
+    })
+    tabStore.setActivateTab('taskManage')
+}
 
 function userManageClick() {
     tabStore.addTab({
