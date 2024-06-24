@@ -12,7 +12,7 @@ export function useGetAllUsers() {
   const isLoading = ref(false)
   const error = ref(null)
   const { t } = useI18n()
-  const API_URL = import.meta.env.BACKEND_API_URL // 使用环境变量
+  const API_URL = import.meta.env.VITE_BACKEND_API_URL // 使用环境变量
 
   const GetAllUsers = async () => {
     isLoading.value = true

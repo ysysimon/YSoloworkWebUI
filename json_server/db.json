@@ -1,15 +1,18 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "test",
-        "password": "123"
-      },
-      {
-        "id": 2,
-        "username": "aa",
-        "password": "bb"
-      }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "username": "test",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "aa",
+      "password": "bb"
+    }
+  ],
+  "auth": {
+    "username": "test",
+    "password": "et125125"
   }
-  
+}
