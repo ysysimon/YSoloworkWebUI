@@ -17,6 +17,10 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  //
- 
+  // dev server
+  server: {
+    host: '0.0.0.0',
+    port: 5173
+  }
+
 })

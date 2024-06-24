@@ -16,7 +16,7 @@ export function useLogin() {
   const isLoading = ref(false)
   const error = ref(null)
   const { t } = useI18n()
-  const loginUrl = import.meta.env.VITE_API_URL // 使用环境变量
+  const API_URL = import.meta.env.BACKEND_API_URL // 使用环境变量
 
   const router = useRouter()
   const store = useAuthStore()
@@ -33,7 +33,7 @@ export function useLogin() {
         text: t('message.requesting'),
       }) // 启动加载动画
       const response = await axios
-        .post(loginUrl + '/api/auth/login', {
+        .post(API_URL + '/api/auth/login', {
           username: username,
           password: password,
         })

@@ -12,7 +12,7 @@ export function useGetAllUsers() {
   const isLoading = ref(false)
   const error = ref(null)
   const { t } = useI18n()
-  const loginUrl = import.meta.env.VITE_API_URL // 使用环境变量
+  const API_URL = import.meta.env.BACKEND_API_URL // 使用环境变量
 
   const GetAllUsers = async () => {
     isLoading.value = true
@@ -23,7 +23,7 @@ export function useGetAllUsers() {
     try {
       // loadingInstance = ElLoading.service({ lock: true, background: 'rgba(0, 0, 0, 0.7)', text: t('message.requesting') }); // 启动加载动画
       const response = await axios
-        .get(loginUrl + '/api/users/', {
+        .get(API_URL + '/api/users/', {
           // body
         })
         .then((response) => {

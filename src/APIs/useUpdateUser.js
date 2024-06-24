@@ -13,7 +13,7 @@ export function useUpdateUser() {
   const isLoading = ref(false)
   const error = ref(null)
   const { t } = useI18n()
-  const loginUrl = import.meta.env.VITE_API_URL // 使用环境变量
+  const API_URL = import.meta.env.BACKEND_API_URL // 使用环境变量
 
   const UpdateUser = async (updateUserID, userInfo) => {
     isLoading.value = true
@@ -24,7 +24,7 @@ export function useUpdateUser() {
     try {
       // loadingInstance = ElLoading.service({ lock: true, background: 'rgba(0, 0, 0, 0.7)', text: t('message.requesting') }); // 启动加载动画
       const response = await axios
-        .put(loginUrl + '/api/users/' + updateUserID, {
+        .put(API_URL + '/api/users/' + updateUserID, {
           // body
           username: userInfo['username'],
           email: userInfo['email'],

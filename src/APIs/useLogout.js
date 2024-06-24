@@ -18,7 +18,7 @@ export function useLogout() {
   const isLoading = ref(false)
   const error = ref(null)
   const { t } = useI18n()
-  const loginUrl = import.meta.env.VITE_API_URL // 使用环境变量
+  const API_URL = import.meta.env.BACKEND_API_URL // 使用环境变量
 
   const router = useRouter()
   const store = useAuthStore()
@@ -36,7 +36,7 @@ export function useLogout() {
         text: t('message.requesting'),
       }) // 启动加载动画
       const response = await axios
-        .post(loginUrl + '/api/auth/logout')
+        .post(API_URL + '/api/auth/logout')
         .then((response) => {
           // console.log('登出成功:', response); // for debug
           if (response.status === 200) {
