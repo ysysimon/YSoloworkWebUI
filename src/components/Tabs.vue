@@ -1,51 +1,61 @@
 <template>
-    <el-tabs v-model="activeTab" type="card" class="demo-tabs" closable @tab-remove="removeTab">
-        <el-tab-pane v-for="item in tabs" :key="item.name" :label="item.title" :name="item.name">
-            <component :is="item.content"></component>
-        </el-tab-pane>
-    </el-tabs>
+  <el-tabs
+    v-model="activeTab"
+    type="card"
+    class="demo-tabs"
+    closable
+    @tab-remove="removeTab"
+  >
+    <el-tab-pane
+      v-for="item in tabs"
+      :key="item.name"
+      :label="item.title"
+      :name="item.name"
+    >
+      <component :is="item.content"></component>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script setup>
-import { useTabStore } from '../stores/tab';
+import { useTabStore } from '../stores/tab'
 import { storeToRefs } from 'pinia'
 import { watch, onMounted } from 'vue'
 
-const tabStore = useTabStore();
-const { activeTab, tabs } = storeToRefs(tabStore);
+const tabStore = useTabStore()
+const { activeTab, tabs } = storeToRefs(tabStore)
 
 // 使用 watch 导致很多问题
 // watch(activeTab, () => {
-    
+
 // })
 
 // watch(tabs, () => {
-    
+
 // })
 
 const removeTab = (targetName) => {
-    const _tabs = tabs.value
-    let activeName = activeTab.value
-    if (activeName === targetName) {
-        _tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-                const nextTab = _tabs[index + 1] || _tabs[index - 1]
-                if (nextTab) {
-                    activeName = nextTab.name
-                }
-            }
-        })
-    }
-    activeTab.value = activeName
-    tabs.value = _tabs.filter((tab) => tab.name !== targetName)
+  const _tabs = tabs.value
+  let activeName = activeTab.value
+  if (activeName === targetName) {
+    _tabs.forEach((tab, index) => {
+      if (tab.name === targetName) {
+        const nextTab = _tabs[index + 1] || _tabs[index - 1]
+        if (nextTab) {
+          activeName = nextTab.name
+        }
+      }
+    })
+  }
+  activeTab.value = activeName
+  tabs.value = _tabs.filter((tab) => tab.name !== targetName)
 
-    // 存储tab状态有bug
-    // if (tabs.value && tabs.value.length == 0) {
-    //     tabStore.activeTab = null;
-    // }
-    // tabStore.updateActiveTablocalStorage()
-    // tabStore.updateTabslocalStorage()
-
+  // 存储tab状态有bug
+  // if (tabs.value && tabs.value.length == 0) {
+  //     tabStore.activeTab = null;
+  // }
+  // tabStore.updateActiveTablocalStorage()
+  // tabStore.updateTabslocalStorage()
 }
 
 //有问题 先不加
@@ -67,7 +77,6 @@ const removeTab = (targetName) => {
 //         })
 //     }
 // })
-
 </script>
 
 <style scoped>

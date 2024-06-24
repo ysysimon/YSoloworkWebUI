@@ -6,9 +6,8 @@
 </template>
 
 <script setup>
-import LoginForm from '../components/LoginForm.vue';
+import LoginForm from '../components/LoginForm.vue'
 import logo from '../assets/logo/YLine_Logo_noBG.png'
-
 </script>
 
 <style scoped>

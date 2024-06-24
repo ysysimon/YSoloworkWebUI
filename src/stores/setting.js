@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useSettingStore = defineStore('setting', {
   state: () => ({
-    setting: JSON.parse(localStorage.getItem('setting')) || {'lang': 'enUs'},
+    setting: JSON.parse(localStorage.getItem('setting')) || { lang: 'enUs' },
   }),
   actions: {
-    saveSetting2localStorage(){
-      localStorage.setItem('setting', JSON.stringify(this.setting));
+    saveSetting2localStorage() {
+      localStorage.setItem('setting', JSON.stringify(this.setting))
     },
-  }
-});
+  },
+})

@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '../stores/auth';
-const store = useAuthStore();
-const userName = store.user.username;
+import { useAuthStore } from '../stores/auth'
+const store = useAuthStore()
+const userName = store.user.username
 </script>
 
 <style scoped>
